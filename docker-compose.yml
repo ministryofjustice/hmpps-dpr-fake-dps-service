@@ -1,10 +1,10 @@
 version: "3"
 services:
-  hmpps-template-kotlin:
+  hmpps-dpr-fake-dps-service:
     build:
       context: .
     network_mode: "host"
-    container_name: hmpps-template-kotlin
+    container_name: hmpps-dpr-fake-dps-service
     ports:
       - "8081:8080"
     healthcheck:
