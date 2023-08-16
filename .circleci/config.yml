@@ -53,7 +53,9 @@ workflows:
       - hmpps/deploy_env:
           name: deploy_dev
           jira_update: true
-          context: hmpps-common-vars
+          context:
+            - hmpps-common-vars
+            - hmpps-dpr-fake-dps-service
           filters:
             branches:
               only:
