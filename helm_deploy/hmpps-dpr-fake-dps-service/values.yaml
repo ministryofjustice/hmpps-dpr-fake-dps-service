@@ -2,7 +2,7 @@
 generic-service:
   nameOverride: hmpps-dpr-fake-dps-service
 
-  replicaCount: 4
+  replicaCount: 2
 
   image:
     repository: quay.io/hmpps/hmpps-dpr-fake-dps-service
@@ -11,7 +11,7 @@ generic-service:
 
   ingress:
     enabled: true
-    host: app-hostname.local    # override per environment
+    host: hmpps-dpr-fake-dps-service.hmpps.service.justice.gov.uk
     tlsSecretName: hmpps-dpr-fake-dps-service-cert
 
   # Environment variables to load into the deployment
@@ -20,7 +20,7 @@ generic-service:
     SERVER_PORT: "8080"
     SPRING_PROFILES_ACTIVE: "logstash"
     APPLICATIONINSIGHTS_CONNECTION_STRING: "InstrumentationKey=$(APPINSIGHTS_INSTRUMENTATIONKEY)"
-    APPLICATIONINSIGHTS_CONFIGURATION_FILE: applicationinsights.json
+    APPLICATIONINSIGHTS_CONFIGURATION_FILE: applicationinsights.dev.json
 
   # Pre-existing kubernetes secrets to load as environment variables in the deployment.
   # namespace_secrets:
@@ -30,6 +30,10 @@ generic-service:
   namespace_secrets:
     hmpps-dpr-fake-dps-service:
       APPINSIGHTS_INSTRUMENTATIONKEY: "APPINSIGHTS_INSTRUMENTATIONKEY"
+    api-token:
+      API_TOKEN: "api_token"
+    rds-postgresql-instance-output:
+      SPRING_DATASOURCE_URL: "url"
 
   allowlist:
     office: "217.33.148.210/32"
@@ -43,3 +47,4 @@ generic-service:
 
 generic-prometheus-alerts:
   targetApplication: hmpps-dpr-fake-dps-service
+  alertSeverity: digital-prison-reporting-dev

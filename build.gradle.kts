@@ -9,6 +9,8 @@ configurations {
 
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter-webflux")
+  implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+  implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
 }
 
 java {

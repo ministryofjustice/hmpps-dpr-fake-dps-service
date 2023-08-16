@@ -2,7 +2,7 @@
 [![repo standards badge](https://img.shields.io/badge/dynamic/json?color=blue&style=flat&logo=github&label=MoJ%20Compliant&query=%24.result&url=https%3A%2F%2Foperations-engineering-reports.cloud-platform.service.justice.gov.uk%2Fapi%2Fv1%2Fcompliant_public_repositories%2Fhmpps-dpr-fake-dps-service)](https://operations-engineering-reports.cloud-platform.service.justice.gov.uk/public-github-repositories.html#hmpps-dpr-fake-dps-service "Link to report")
 [![CircleCI](https://circleci.com/gh/ministryofjustice/hmpps-dpr-fake-dps-service/tree/main.svg?style=svg)](https://circleci.com/gh/ministryofjustice/hmpps-dpr-fake-dps-service)
 [![Docker Repository on Quay](https://quay.io/repository/hmpps/hmpps-dpr-fake-dps-service/status "Docker Repository on Quay")](https://quay.io/repository/hmpps/hmpps-dpr-fake-dps-service)
-[![API docs](https://img.shields.io/badge/API_docs_-view-85EA2D.svg?logo=swagger)](https://hmpps-dpr-fake-dps-service-dev.hmpps.service.justice.gov.uk/webjars/swagger-ui/index.html?configUrl=/v3/api-docs)
+[![API docs](https://img.shields.io/badge/API_docs_-view-85EA2D.svg?logo=swagger)](https://hmpps-dpr-fake-dps-service.hmpps.service.justice.gov.uk/webjars/swagger-ui/index.html?configUrl=/v3/api-docs)
 
 This is a skeleton project from which to create new kotlin projects from.
 
