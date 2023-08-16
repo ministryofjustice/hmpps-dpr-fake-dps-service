@@ -1,10 +1,10 @@
 info.app:
-  name: HMPPS Template Kotlin
+  name: Hmpps Dpr Fake Dps Service
   version: 1.0
 
 spring:
   application:
-    name: hmpps-template-kotlin
+    name: hmpps-dpr-fake-dps-service
   codec:
     max-in-memory-size: 10MB
 
