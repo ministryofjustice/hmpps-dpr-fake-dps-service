@@ -31,7 +31,7 @@ generic-service:
     hmpps-dpr-fake-dps-service:
       APPINSIGHTS_INSTRUMENTATIONKEY: "APPINSIGHTS_INSTRUMENTATIONKEY"
     api-token:
-      API_TOKEN: "session_secret"
+      API_TOKEN: "api_token"
     rds-postgresql-instance-output:
       SPRING_DATASOURCE_URL: "url"
       SPRING_DATASOURCE_USERNAME: "username"
