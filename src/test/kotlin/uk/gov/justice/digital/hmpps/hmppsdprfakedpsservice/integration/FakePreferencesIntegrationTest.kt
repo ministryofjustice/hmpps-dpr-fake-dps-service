@@ -102,4 +102,42 @@ class FakePreferencesIntegrationTest : IntegrationTestBase() {
       .expectStatus()
       .isBadRequest
   }
+
+  @Test
+  fun `Delete all works correctly`() {
+    fakePreferencesRepository.save(FakePreferences("1", "Cat", "Green", LocalDateTime.now()))
+    fakePreferencesRepository.save(FakePreferences("2", "Dog", "Blue", LocalDateTime.now()))
+
+    assertThat(fakePreferencesRepository.count()).isEqualTo(2)
+
+    webTestClient.delete()
+      .uri("/fake-preferences")
+      .exchange()
+      .expectStatus()
+      .isOk
+
+    assertThat(fakePreferencesRepository.count()).isEqualTo(0)
+  }
+
+  @Test
+  fun `Delete by ID works correctly`() {
+    fakePreferencesRepository.save(FakePreferences("3", "Frog", "Purple", LocalDateTime.now()))
+
+    webTestClient.delete()
+      .uri("/fake-preferences/3")
+      .exchange()
+      .expectStatus()
+      .isOk
+
+    assertThat(fakePreferencesRepository.count()).isEqualTo(0)
+  }
+
+  @Test
+  fun `Delete by ID returns Not Found for missing preference`() {
+    webTestClient.delete()
+      .uri("/fake-preferences/4")
+      .exchange()
+      .expectStatus()
+      .isNotFound
+  }
 }

@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.persistence.EntityNotFoundException
 import jakarta.validation.Valid
 import org.slf4j.LoggerFactory
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PutMapping
@@ -45,5 +46,22 @@ class FakePreferencesController(val fakePreferencesRepository: FakePreferencesRe
 
   companion object {
     private val log = LoggerFactory.getLogger(this::class.java)
+  }
+
+  @Operation(description = "Deletes all prisoners' fake preferences")
+  @DeleteMapping("/fake-preferences")
+  fun deleteFakePreferences() {
+    fakePreferencesRepository.deleteAll()
+  }
+
+  @Operation(description = "Gets a specific prisoner's fake preferences")
+  @DeleteMapping("/fake-preferences/{prisonerNumber}")
+  fun deleteFakePreferences(@PathVariable prisonerNumber: String) {
+    if (!fakePreferencesRepository.existsById(prisonerNumber)) {
+      log.warn("Preferences not found: {}", prisonerNumber)
+      throw EntityNotFoundException()
+    }
+
+    fakePreferencesRepository.deleteById(prisonerNumber)
   }
 }
