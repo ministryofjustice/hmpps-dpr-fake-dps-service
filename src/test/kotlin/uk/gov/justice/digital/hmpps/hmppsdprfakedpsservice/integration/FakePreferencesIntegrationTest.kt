@@ -9,7 +9,6 @@ import org.springframework.test.web.reactive.server.returnResult
 import uk.gov.justice.digital.hmpps.hmppsdprfakedpsservice.data.FakePreferencesRepository
 import uk.gov.justice.digital.hmpps.hmppsdprfakedpsservice.model.FakePreferences
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class FakePreferencesIntegrationTest : IntegrationTestBase() {
 
@@ -22,7 +21,7 @@ class FakePreferencesIntegrationTest : IntegrationTestBase() {
   }
 
   @Test
-  fun `Get returns empty array successfully`() {
+  fun `Get list returns empty array successfully`() {
     webTestClient.get()
       .uri("/fake-preferences")
       .exchange()
@@ -33,9 +32,8 @@ class FakePreferencesIntegrationTest : IntegrationTestBase() {
   }
 
   @Test
-  fun `Get returns data correctly`() {
+  fun `Get list returns data correctly`() {
     val expected = FakePreferences("1", "Cat", "Green", LocalDateTime.now())
-    val expectedDateString = DateTimeFormatter.ISO_DATE_TIME.format(expected.lastUpdated)
 
     fakePreferencesRepository.save(expected)
 
@@ -45,13 +43,37 @@ class FakePreferencesIntegrationTest : IntegrationTestBase() {
       .expectStatus()
       .isOk
       .returnResult<FakePreferences>()
+      .responseBody
+      .blockLast()!!
 
-    val resultBody = result.responseBody.blockLast()
-    assertThat(resultBody!!.prisonerNumber).isEqualTo("1")
-    assertThat("[0].favouriteAnimal").isEqualTo("Cat")
-    assertThat("[0].favouriteColour").isEqualTo("Green")
-    // Some implementations return a greater millisecond precision.
-    assertThat("[0].lastUpdated").startsWith(expectedDateString)
+    assertThat(result).isEqualTo(expected)
+  }
+
+  @Test
+  fun `Get by ID returns data correctly`() {
+    val expected = FakePreferences("3", "Frog", "Purple", LocalDateTime.now())
+
+    fakePreferencesRepository.save(expected)
+
+    val result = webTestClient.get()
+      .uri("/fake-preferences/3")
+      .exchange()
+      .expectStatus()
+      .isOk
+      .returnResult<FakePreferences>()
+      .responseBody
+      .blockLast()!!
+
+    assertThat(result).isEqualTo(expected)
+  }
+
+  @Test
+  fun `Get by ID returns Not Found for missing preference`() {
+    webTestClient.get()
+      .uri("/fake-preferences/4")
+      .exchange()
+      .expectStatus()
+      .isNotFound
   }
 
   @Test
@@ -67,10 +89,7 @@ class FakePreferencesIntegrationTest : IntegrationTestBase() {
 
     val result = fakePreferencesRepository.findById(body.prisonerNumber)
     assertThat(result).isPresent
-    assertThat(result.get().prisonerNumber).isEqualTo("2")
-    assertThat(result.get().favouriteAnimal).isEqualTo("Cat")
-    assertThat(result.get().favouriteColour).isEqualTo("Green")
-    assertThat(result.get().lastUpdated).isEqualTo(body.lastUpdated)
+    assertThat(result.get()).isEqualTo(body)
   }
 
   @Test
