@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController
 import uk.gov.justice.digital.hmpps.hmppsdprfakedpsservice.model.FakePreferences
 
 @RestController
-@Tag(name = "Establishments API")
+@Tag(name = "Fake Preferences API")
 class FakePreferencesController {
   @Operation(description = "Gets a list of fake preferences")
   @GetMapping("/fake-preferences")

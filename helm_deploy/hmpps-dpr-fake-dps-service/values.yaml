@@ -20,7 +20,7 @@ generic-service:
     SERVER_PORT: "8080"
     SPRING_PROFILES_ACTIVE: "logstash"
     APPLICATIONINSIGHTS_CONNECTION_STRING: "InstrumentationKey=$(APPINSIGHTS_INSTRUMENTATIONKEY)"
-    APPLICATIONINSIGHTS_CONFIGURATION_FILE: applicationinsights.dev.json
+    APPLICATIONINSIGHTS_CONFIGURATION_FILE: applicationinsights.json
 
   # Pre-existing kubernetes secrets to load as environment variables in the deployment.
   # namespace_secrets:
@@ -31,9 +31,11 @@ generic-service:
     hmpps-dpr-fake-dps-service:
       APPINSIGHTS_INSTRUMENTATIONKEY: "APPINSIGHTS_INSTRUMENTATIONKEY"
     api-token:
-      API_TOKEN: "api_token"
+      API_TOKEN: "session_secret"
     rds-postgresql-instance-output:
       SPRING_DATASOURCE_URL: "url"
+      SPRING_DATASOURCE_USERNAME: "username"
+      SPRING_DATASOURCE_PASSWORD: "password"
 
   allowlist:
     office: "217.33.148.210/32"
