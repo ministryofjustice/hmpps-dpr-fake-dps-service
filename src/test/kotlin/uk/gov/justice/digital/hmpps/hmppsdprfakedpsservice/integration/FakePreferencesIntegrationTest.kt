@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
+import org.springframework.test.web.reactive.server.returnResult
 import uk.gov.justice.digital.hmpps.hmppsdprfakedpsservice.data.FakePreferencesRepository
 import uk.gov.justice.digital.hmpps.hmppsdprfakedpsservice.model.FakePreferences
 import java.time.LocalDateTime
@@ -38,20 +39,23 @@ class FakePreferencesIntegrationTest : IntegrationTestBase() {
 
     fakePreferencesRepository.save(expected)
 
-    webTestClient.get()
+    val result = webTestClient.get()
       .uri("/fake-preferences")
       .exchange()
       .expectStatus()
       .isOk
-      .expectBody()
-      .jsonPath("[0].prisonerNumber").isEqualTo("1")
-      .jsonPath("[0].favouriteAnimal").isEqualTo("Cat")
-      .jsonPath("[0].favouriteColour").isEqualTo("Green")
-      .jsonPath("[0].lastUpdated").isEqualTo(expectedDateString)
+      .returnResult<FakePreferences>()
+
+    val resultBody = result.responseBody.blockLast()
+    assertThat(resultBody!!.prisonerNumber).isEqualTo("1")
+    assertThat("[0].favouriteAnimal").isEqualTo("Cat")
+    assertThat("[0].favouriteColour").isEqualTo("Green")
+    // Some implementations return a greater millisecond precision.
+    assertThat("[0].lastUpdated").startsWith(expectedDateString)
   }
 
   @Test
-  fun `Saves data correctly`() {
+  fun `Put saves data correctly`() {
     val body = FakePreferences("2", "Cat", "Green", LocalDateTime.now())
 
     webTestClient.put()
