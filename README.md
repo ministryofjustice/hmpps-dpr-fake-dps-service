@@ -1,44 +1,31 @@
-# hmpps-dpr-fake-dps-service
+# HMPPS DPR Fake DPS Service
 [![repo standards badge](https://img.shields.io/badge/dynamic/json?color=blue&style=flat&logo=github&label=MoJ%20Compliant&query=%24.result&url=https%3A%2F%2Foperations-engineering-reports.cloud-platform.service.justice.gov.uk%2Fapi%2Fv1%2Fcompliant_public_repositories%2Fhmpps-dpr-fake-dps-service)](https://operations-engineering-reports.cloud-platform.service.justice.gov.uk/public-github-repositories.html#hmpps-dpr-fake-dps-service "Link to report")
 [![CircleCI](https://circleci.com/gh/ministryofjustice/hmpps-dpr-fake-dps-service/tree/main.svg?style=svg)](https://circleci.com/gh/ministryofjustice/hmpps-dpr-fake-dps-service)
 [![Docker Repository on Quay](https://quay.io/repository/hmpps/hmpps-dpr-fake-dps-service/status "Docker Repository on Quay")](https://quay.io/repository/hmpps/hmpps-dpr-fake-dps-service)
-[![API docs](https://img.shields.io/badge/API_docs_-view-85EA2D.svg?logo=swagger)](https://hmpps-dpr-fake-dps-service-dev.hmpps.service.justice.gov.uk/webjars/swagger-ui/index.html?configUrl=/v3/api-docs)
+[![API docs](https://img.shields.io/badge/API_docs_-view-85EA2D.svg?logo=swagger)](https://hmpps-dpr-fake-dps-service.hmpps.service.justice.gov.uk/swagger-ui/index.html)
 
-This is a skeleton project from which to create new kotlin projects from.
+## Purpose
 
-# Instructions
+This service has been created to test the process of importing data into the Digital Prisons Reporting project (in the Modernisation Platform) from an external DPS service hosted in the Cloud Platform Environment.
 
-If this is a HMPPS project then the project will be created as part of bootstrapping - 
-see https://github.com/ministryofjustice/dps-project-bootstrap.
+Initially it will be used to verify the PostgreSQL settings needed for data import. In future, it will be used to enable automated tests of the import process.
 
-## Creating a CloudPlatform namespace
+## Deployment
 
-When deploying to a new namespace, you may wish to use this template kotlin project namespace as the basis for your new namespace:
+This application is hosted in the Cloud Platform Environment in the [hmpps-dpr-fake-dps-service](https://github.com/ministryofjustice/cloud-platform-environments/tree/main/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-dpr-fake-dps-service) namespace.
 
-<https://github.com/ministryofjustice/cloud-platform-environments/tree/main/namespaces/live.cloud-platform.service.justice.gov.uk/hmpps-dpr-fake-dps-service>
+It is deployed via CircleCI, enabled by the [DPS Bootstrap project](https://github.com/ministryofjustice/dps-project-bootstrap/blob/main/projects.json#L2219).
 
-Copy this folder, update all the existing namespace references, and submit a PR to the CloudPlatform team. Further instructions from the CloudPlatform team can be found here: <https://user-guide.cloud-platform.service.justice.gov.uk/#cloud-platform-user-guide>
+There is no environment-specific version of the service - it is just a single namespace.
 
-## Renaming from Hmpps Dpr Fake Dps Service - github Actions
+## Using the service
 
-Once the new repository is deployed. Navigate to the repository in github, and select the `Actions` tab.
-Click the link to `Enable Actions on this repository`.
+The API can be accessed directly, or via the [Swagger UI](https://hmpps-dpr-fake-dps-service.hmpps.service.justice.gov.uk/swagger-ui/index.html).
 
-Find the Action workflow named: `rename-project-create-pr` and click `Run workflow`.  This workflow will
-execute the `rename-project.bash` and create Pull Request for you to review.  Review the PR and merge.
+The API is authenticated using an API token in the request header, called `x-api-token`.
 
-Note: ideally this workflow would run automatically however due to a recent change github Actions are not
-enabled by default on newly created repos. There is no way to enable Actions other then to click the button in the UI.
-If this situation changes we will update this project so that the workflow is triggered during the bootstrap project.
-Further reading: <https://github.community/t/workflow-isnt-enabled-in-repos-generated-from-template/136421>
+This token can be found in the kubernetes secret `api-token`, within the namespace:
 
-## Manually renaming from Hmpps Dpr Fake Dps Service
-
-Run the `rename-project.bash` and create a PR.
-
-The `rename-project.bash` script takes a single argument - the name of the project and calculates from it:
-* The main class name (project name converted to pascal case) 
-* The project description (class name with spaces between the words)
-* The main package name (project name with hyphens removed)
-
-It then performs a search and replace and directory renames so the project is ready to be used.
+```shell
+kubectl get secret -n hmpps-dpr-fake-dps-service api-token -o jsonpath='{.data.api_token}' | base64 -d && echo
+```

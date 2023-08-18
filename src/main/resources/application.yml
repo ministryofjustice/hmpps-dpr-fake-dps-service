@@ -1,5 +1,5 @@
 info.app:
-  name: Hmpps Dpr Fake Dps Service
+  name: Hmpps DPR Fake DPS Service
   version: 1.0
 
 spring:
@@ -17,6 +17,11 @@ spring:
     group:
       test:
         - "stdout"
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
 
 server:
   port: 8080
@@ -49,3 +54,6 @@ management:
     info:
       cache:
         time-to-live: 2000ms
+
+security:
+  api-token: ${API_TOKEN}
