@@ -12,9 +12,6 @@ import org.springframework.stereotype.Component
 import org.springframework.web.filter.GenericFilterBean
 import java.util.Collections.singletonList
 
-const val AUTH_TOKEN_HEADER_NAME: String = "x-api-token"
-const val TEST_USER_ROLE: String = "TEST_USER"
-
 @Component
 class AuthenticationFilter(
   @Value("\${security.api-token}")

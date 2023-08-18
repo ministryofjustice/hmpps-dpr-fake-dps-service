@@ -34,7 +34,7 @@ class FakePreferencesController(val fakePreferencesRepository: FakePreferencesRe
       }
   }
 
-  @Operation(description = "Adds a prisoner's fake preferences")
+  @Operation(description = "Adds or updates a prisoner's fake preferences")
   @PutMapping("/fake-preferences")
   fun putFakePreferences(
     @RequestBody
