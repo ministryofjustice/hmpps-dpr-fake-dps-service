@@ -2,6 +2,8 @@ plugins {
   id("uk.gov.justice.hmpps.gradle-spring-boot") version "5.+"
   kotlin("plugin.spring") version "1.9.0"
   kotlin("plugin.jpa") version "1.9.0"
+  id("jacoco")
+  id("org.barfuin.gradle.jacocolog") version "3.1.0"
 }
 
 configurations {
@@ -33,4 +35,12 @@ tasks {
       jvmTarget = "19"
     }
   }
+}
+
+tasks.test {
+  finalizedBy(tasks.jacocoTestReport)
+}
+
+tasks.jacocoTestReport {
+  dependsOn(tasks.test)
 }
