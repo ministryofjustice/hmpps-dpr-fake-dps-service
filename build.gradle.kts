@@ -1,7 +1,9 @@
 plugins {
   id("uk.gov.justice.hmpps.gradle-spring-boot") version "5.+"
-  kotlin("plugin.spring") version "1.9.0"
-  kotlin("plugin.jpa") version "1.9.0"
+  kotlin("plugin.spring") version "1.9.10"
+  kotlin("plugin.jpa") version "1.9.10"
+  id("jacoco")
+  id("org.barfuin.gradle.jacocolog") version "3.1.0"
 }
 
 configurations {
@@ -21,7 +23,7 @@ dependencies {
   implementation("org.postgresql:postgresql")
 
   // Swagger
-  implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
+  implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
 
   // Testing
   testImplementation("com.h2database:h2")
@@ -37,4 +39,12 @@ tasks {
       jvmTarget = "19"
     }
   }
+}
+
+tasks.test {
+  finalizedBy(tasks.jacocoTestReport)
+}
+
+tasks.jacocoTestReport {
+  dependsOn(tasks.test)
 }
