@@ -1,6 +1,7 @@
 package uk.gov.justice.digital.hmpps.hmppsdprfakedpsservice.controller
 
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.persistence.EntityNotFoundException
 import jakarta.validation.Valid
@@ -18,13 +19,19 @@ import kotlin.jvm.optionals.getOrElse
 @RestController
 @Tag(name = "Fake Preferences API")
 class FakePreferencesController(val fakePreferencesRepository: FakePreferencesRepository) {
-  @Operation(description = "Gets a list of prisoners' fake preferences")
+  @Operation(
+    description = "Gets a list of prisoners' fake preferences",
+    security = [ SecurityRequirement(name = "bearer-jwt") ],
+  )
   @GetMapping("/fake-preferences")
   fun listFakePreferences(): List<FakePreferences> {
     return fakePreferencesRepository.findAll().toList()
   }
 
-  @Operation(description = "Gets a specific prisoner's fake preferences")
+  @Operation(
+    description = "Gets a specific prisoner's fake preferences",
+    security = [ SecurityRequirement(name = "bearer-jwt") ],
+  )
   @GetMapping("/fake-preferences/{prisonerNumber}")
   fun getFakePreferences(@PathVariable prisonerNumber: String): FakePreferences {
     return fakePreferencesRepository.findById(prisonerNumber)
@@ -34,7 +41,10 @@ class FakePreferencesController(val fakePreferencesRepository: FakePreferencesRe
       }
   }
 
-  @Operation(description = "Adds or updates a prisoner's fake preferences")
+  @Operation(
+    description = "Adds or updates a prisoner's fake preferences",
+    security = [io.swagger.v3.oas.annotations.security.SecurityRequirement(name = "bearer-jwt")],
+  )
   @PutMapping("/fake-preferences")
   fun putFakePreferences(
     @RequestBody
@@ -48,13 +58,19 @@ class FakePreferencesController(val fakePreferencesRepository: FakePreferencesRe
     private val log = LoggerFactory.getLogger(this::class.java)
   }
 
-  @Operation(description = "Deletes all prisoners' fake preferences")
+  @Operation(
+    description = "Deletes all prisoners' fake preferences",
+    security = [ SecurityRequirement(name = "bearer-jwt") ],
+  )
   @DeleteMapping("/fake-preferences")
   fun deleteFakePreferences() {
     fakePreferencesRepository.deleteAll()
   }
 
-  @Operation(description = "Gets a specific prisoner's fake preferences")
+  @Operation(
+    description = "Gets a specific prisoner's fake preferences",
+    security = [ SecurityRequirement(name = "bearer-jwt") ],
+  )
   @DeleteMapping("/fake-preferences/{prisonerNumber}")
   fun deleteFakePreferences(@PathVariable prisonerNumber: String) {
     if (!fakePreferencesRepository.existsById(prisonerNumber)) {

@@ -1,0 +1,73 @@
+[ {
+  "id" : "fake-preferences",
+  "name" : "Fake preferences",
+  "description" : "Fake reports about fake prisoner preferences",
+  "metaData" : {
+    "author" : "Adam",
+    "version" : "1.2.3",
+    "owner" : "Eve"
+  },
+  "dataSource" : [ {
+    "id" : "postgres",
+    "name" : "PostgreSQL",
+    "connection" : "postgres"
+  } ],
+  "dataSet" : [ {
+    "id" : "all",
+    "name" : "All",
+    "query" : "SELECT * FROM fake_preferences",
+    "schema" : {
+      "field" : [ {
+        "name" : "prisoner_number",
+        "type" : "String"
+      }, {
+        "name" : "favourite_animal",
+        "type" : "String"
+      }, {
+        "name" : "favourite_colour",
+        "type" : "String"
+      }, {
+        "name" : "last_updated",
+        "type" : "Date"
+      } ]
+    }
+  } ],
+  "report" : [ {
+    "id" : "all",
+    "name" : "All",
+    "description" : "All preferences",
+    "created" : "2023-10-30",
+    "version" : "1.2.3",
+    "dataset" : "$ref:all",
+    "policy" : [ ],
+    "render" : "HTML",
+    "specification" : {
+      "template" : "list",
+      "field" : [ {
+        "schemaField" : "$ref:prisoner_number",
+        "displayName" : "Prison Number",
+        "sortable" : true,
+        "defaultSortColumn" : true
+      }, {
+        "schemaField" : "$ref:favourite_animal",
+        "displayName" : "Favourite Animal",
+        "sortable" : true,
+        "defaultSortColumn" : false
+      }, {
+        "schemaField" : "$ref:favourite_colour",
+        "displayName" : "Favourite Colour",
+        "sortable" : true,
+        "defaultSortColumn" : false
+      }, {
+        "schemaField" : "$ref:last_updated",
+        "displayName" : "Last Updated",
+        "filter" : {
+          "type" : "DateRange"
+        },
+        "sortable" : true,
+        "defaultSortColumn" : false
+      } ]
+    },
+    "destination" : [ ]
+  } ]
+} ]

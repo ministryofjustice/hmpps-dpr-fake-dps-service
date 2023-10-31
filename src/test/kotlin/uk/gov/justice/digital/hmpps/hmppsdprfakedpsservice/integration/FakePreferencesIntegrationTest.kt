@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.test.web.reactive.server.returnResult
-import uk.gov.justice.digital.hmpps.hmppsdprfakedpsservice.config.AUTH_TOKEN_HEADER_NAME
 import uk.gov.justice.digital.hmpps.hmppsdprfakedpsservice.data.FakePreferencesRepository
 import uk.gov.justice.digital.hmpps.hmppsdprfakedpsservice.model.FakePreferences
 import java.time.LocalDateTime
@@ -25,21 +24,12 @@ class FakePreferencesIntegrationTest : IntegrationTestBase() {
   fun `Get list returns empty array successfully`() {
     webTestClient.get()
       .uri("/fake-preferences")
-      .header(AUTH_TOKEN_HEADER_NAME, apiToken)
+      .header("Authorization", "Bearer x")
       .exchange()
       .expectStatus()
       .isOk
       .expectBody()
       .json("[]")
-  }
-
-  @Test
-  fun `Get list with no API token is forbidden`() {
-    webTestClient.get()
-      .uri("/fake-preferences")
-      .exchange()
-      .expectStatus()
-      .isForbidden
   }
 
   @Test
@@ -50,7 +40,7 @@ class FakePreferencesIntegrationTest : IntegrationTestBase() {
 
     val result = webTestClient.get()
       .uri("/fake-preferences")
-      .header(AUTH_TOKEN_HEADER_NAME, apiToken)
+      .header("Authorization", "Bearer x")
       .exchange()
       .expectStatus()
       .isOk
@@ -69,7 +59,7 @@ class FakePreferencesIntegrationTest : IntegrationTestBase() {
 
     val result = webTestClient.get()
       .uri("/fake-preferences/3")
-      .header(AUTH_TOKEN_HEADER_NAME, apiToken)
+      .header("Authorization", "Bearer x")
       .exchange()
       .expectStatus()
       .isOk
@@ -84,7 +74,7 @@ class FakePreferencesIntegrationTest : IntegrationTestBase() {
   fun `Get by ID returns Not Found for missing preference`() {
     webTestClient.get()
       .uri("/fake-preferences/4")
-      .header(AUTH_TOKEN_HEADER_NAME, apiToken)
+      .header("Authorization", "Bearer x")
       .exchange()
       .expectStatus()
       .isNotFound
@@ -96,7 +86,7 @@ class FakePreferencesIntegrationTest : IntegrationTestBase() {
 
     webTestClient.put()
       .uri("/fake-preferences")
-      .header(AUTH_TOKEN_HEADER_NAME, apiToken)
+      .header("Authorization", "Bearer x")
       .bodyValue(body)
       .exchange()
       .expectStatus()
@@ -111,7 +101,7 @@ class FakePreferencesIntegrationTest : IntegrationTestBase() {
   fun `Rejects invalid data`() {
     webTestClient.put()
       .uri("/fake-preferences")
-      .header(AUTH_TOKEN_HEADER_NAME, apiToken)
+      .header("Authorization", "Bearer x")
       .contentType(MediaType.APPLICATION_JSON)
       .bodyValue("{}")
       .exchange()
@@ -128,7 +118,7 @@ class FakePreferencesIntegrationTest : IntegrationTestBase() {
 
     webTestClient.delete()
       .uri("/fake-preferences")
-      .header(AUTH_TOKEN_HEADER_NAME, apiToken)
+      .header("Authorization", "Bearer x")
       .exchange()
       .expectStatus()
       .isOk
@@ -142,7 +132,7 @@ class FakePreferencesIntegrationTest : IntegrationTestBase() {
 
     webTestClient.delete()
       .uri("/fake-preferences/3")
-      .header(AUTH_TOKEN_HEADER_NAME, apiToken)
+      .header("Authorization", "Bearer x")
       .exchange()
       .expectStatus()
       .isOk
@@ -154,7 +144,7 @@ class FakePreferencesIntegrationTest : IntegrationTestBase() {
   fun `Delete by ID returns Not Found for missing preference`() {
     webTestClient.delete()
       .uri("/fake-preferences/4")
-      .header(AUTH_TOKEN_HEADER_NAME, apiToken)
+      .header("Authorization", "Bearer x")
       .exchange()
       .expectStatus()
       .isNotFound
