@@ -16,9 +16,8 @@ class JwtAuthHelper {
 
   class FakeJwtDecoder : JwtDecoder {
     override fun decode(token: String?): Jwt {
-      val fakeMap : Map<String, Any> = singletonMap("Fake", "Fake")
+      val fakeMap: Map<String, Any> = singletonMap("Fake", "Fake")
       return Jwt("Fake", Instant.now(), Instant.MAX, fakeMap, fakeMap)
     }
-
   }
 }

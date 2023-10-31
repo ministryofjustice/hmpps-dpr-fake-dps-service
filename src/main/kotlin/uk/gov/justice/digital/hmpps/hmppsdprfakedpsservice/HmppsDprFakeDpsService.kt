@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan
 @SpringBootApplication()
 @ComponentScan(
   "uk.gov.justice.digital.hmpps.hmppsdprfakedpsservice",
-  "uk.gov.justice.digital.hmpps.digitalprisonreportinglib"
+  "uk.gov.justice.digital.hmpps.digitalprisonreportinglib",
 )
 class HmppsDprFakeDpsService
 
