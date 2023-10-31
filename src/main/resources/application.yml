@@ -23,6 +23,12 @@ spring:
       ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${hmpps.auth.url}/.well-known/jwks.json
+
 server:
   port: 8080
   servlet:
@@ -57,3 +63,14 @@ management:
 
 security:
   api-token: ${API_TOKEN}
+
+dpr:
+  lib:
+    user:
+      role: ROLE_PRISONS_REPORTING_USER
+    definition:
+      location: definitions.json
+
+hmpps:
+  auth:
+    url: https://sign-in-dev.hmpps.service.justice.gov.uk/auth
