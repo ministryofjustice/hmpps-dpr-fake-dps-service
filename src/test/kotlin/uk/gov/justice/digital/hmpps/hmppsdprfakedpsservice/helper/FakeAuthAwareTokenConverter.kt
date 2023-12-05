@@ -9,7 +9,7 @@ import uk.gov.justice.digital.hmpps.hmppsdprfakedpsservice.security.FakeCaseload
 
 @Component
 class FakeAuthAwareTokenConverter(
-  val fakeCaseloadProvider: FakeCaseloadProvider
+  val fakeCaseloadProvider: FakeCaseloadProvider,
 ) : AuthAwareTokenConverter {
 
   override fun convert(jwt: Jwt): AuthAwareAuthenticationToken {
