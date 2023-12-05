@@ -45,27 +45,27 @@
       "template" : "list",
       "field" : [ {
         "schemaField" : "$ref:prisoner_number",
-        "displayName" : "Prison Number",
+        "display" : "Prison Number",
         "sortable" : true,
-        "defaultSortColumn" : true
+        "defaultsort" : true
       }, {
         "schemaField" : "$ref:favourite_animal",
-        "displayName" : "Favourite Animal",
+        "display" : "Favourite Animal",
         "sortable" : true,
-        "defaultSortColumn" : false
+        "defaultsort" : false
       }, {
         "schemaField" : "$ref:favourite_colour",
-        "displayName" : "Favourite Colour",
+        "display" : "Favourite Colour",
         "sortable" : true,
-        "defaultSortColumn" : false
+        "defaultsort" : false
       }, {
         "schemaField" : "$ref:last_updated",
-        "displayName" : "Last Updated",
+        "display" : "Last Updated",
         "filter" : {
           "type" : "DateRange"
         },
         "sortable" : true,
-        "defaultSortColumn" : false
+        "defaultsort" : false
       } ]
     },
     "destination" : [ ]

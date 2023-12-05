@@ -69,7 +69,7 @@ dpr:
     user:
       role: ROLE_PRISONS_REPORTING_USER
     definition:
-      location: definitions.json
+      locations: definitions.json
 
 hmpps:
   auth:
