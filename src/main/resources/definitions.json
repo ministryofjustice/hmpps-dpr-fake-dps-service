@@ -1,34 +1,34 @@
-[ {
+{
   "id" : "fake-preferences",
   "name" : "Fake preferences",
   "description" : "Fake reports about fake prisoner preferences",
-  "metaData" : {
+  "metadata" : {
     "author" : "Adam",
     "version" : "1.2.3",
     "owner" : "Eve"
   },
-  "dataSource" : [ {
+  "datasource" : [ {
     "id" : "postgres",
     "name" : "PostgreSQL",
     "connection" : "postgres"
   } ],
-  "dataSet" : [ {
+  "dataset" : [ {
     "id" : "all",
     "name" : "All",
     "query" : "SELECT * FROM fake_preferences",
     "schema" : {
       "field" : [ {
         "name" : "prisoner_number",
-        "type" : "String"
+        "type" : "string"
       }, {
         "name" : "favourite_animal",
-        "type" : "String"
+        "type" : "string"
       }, {
         "name" : "favourite_colour",
-        "type" : "String"
+        "type" : "string"
       }, {
         "name" : "last_updated",
-        "type" : "Date"
+        "type" : "date"
       } ]
     }
   } ],
@@ -36,7 +36,6 @@
     "id" : "all",
     "name" : "All",
     "description" : "All preferences",
-    "created" : "2023-10-30",
     "version" : "1.2.3",
     "dataset" : "$ref:all",
     "policy" : [ ],
@@ -44,25 +43,25 @@
     "specification" : {
       "template" : "list",
       "field" : [ {
-        "schemaField" : "$ref:prisoner_number",
+        "name" : "$ref:prisoner_number",
         "display" : "Prison Number",
         "sortable" : true,
         "defaultsort" : true
       }, {
-        "schemaField" : "$ref:favourite_animal",
+        "name" : "$ref:favourite_animal",
         "display" : "Favourite Animal",
         "sortable" : true,
         "defaultsort" : false
       }, {
-        "schemaField" : "$ref:favourite_colour",
+        "name" : "$ref:favourite_colour",
         "display" : "Favourite Colour",
         "sortable" : true,
         "defaultsort" : false
       }, {
-        "schemaField" : "$ref:last_updated",
+        "name" : "$ref:last_updated",
         "display" : "Last Updated",
         "filter" : {
-          "type" : "DateRange"
+          "type" : "daterange"
         },
         "sortable" : true,
         "defaultsort" : false
@@ -70,4 +69,4 @@
     },
     "destination" : [ ]
   } ]
-} ]
+}
