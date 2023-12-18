@@ -12,6 +12,14 @@
     "name" : "PostgreSQL",
     "connection" : "postgres"
   } ],
+  "policy": [
+    {
+      "id": "fake",
+      "type": "row-level",
+      "action": ["TRUE"],
+      "rule": []
+    }
+  ],
   "dataset" : [ {
     "id" : "all",
     "name" : "All",
