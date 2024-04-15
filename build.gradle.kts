@@ -20,7 +20,7 @@ dependencies {
   // Database
   implementation("org.springframework.boot:spring-boot-starter-data-jpa")
   implementation("org.springframework.boot:spring-boot-starter-security")
-  implementation("org.postgresql:postgresql:42.7.2")
+  implementation("org.postgresql:postgresql:42.7.3")
 
   // Swagger
   implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
