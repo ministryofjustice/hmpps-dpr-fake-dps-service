@@ -10,9 +10,7 @@ import java.util.Collections.singletonMap
 @Component
 class JwtAuthHelper {
   @Bean
-  fun jwtDecoder(): JwtDecoder {
-    return FakeJwtDecoder()
-  }
+  fun jwtDecoder(): JwtDecoder = FakeJwtDecoder()
 
   class FakeJwtDecoder : JwtDecoder {
     override fun decode(token: String?): Jwt {

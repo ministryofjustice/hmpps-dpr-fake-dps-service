@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  hmpps: ministryofjustice/hmpps@7
+  hmpps: ministryofjustice/hmpps@10
 
 parameters:
   alerts-slack-channel:
@@ -11,11 +11,15 @@ parameters:
     type: string
     default: dpr_release_alerts
 
+  java-version:
+    type: string
+    default: "21.0"
+
 jobs:
   validate:
     executor:
       name: hmpps/java
-      tag: "19.0"
+      tag: << pipeline.parameters.java-version >>
     steps:
       - checkout
       - restore_cache:
@@ -77,7 +81,7 @@ workflows:
           slack_channel: << pipeline.parameters.alerts-slack-channel >>
           context:
             - hmpps-common-vars
-          jdk_tag: "19.0"
+          jdk_tag: << pipeline.parameters.java-version >>
       - hmpps/trivy_latest_scan:
           slack_channel: << pipeline.parameters.alerts-slack-channel >>
           context:
