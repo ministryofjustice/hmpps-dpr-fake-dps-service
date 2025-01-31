@@ -23,7 +23,12 @@
       "id": "fake-access",
       "type": "access",
       "action": ["TRUE"],
-      "rule": []
+      "rule": [
+        {
+          "effect": "permit",
+          "condition": []
+        }
+      ]
     }
   ],
   "dataset" : [ {
