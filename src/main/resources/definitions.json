@@ -18,6 +18,12 @@
       "type": "row-level",
       "action": ["TRUE"],
       "rule": []
+    },
+    {
+      "id": "fake-access",
+      "type": "access",
+      "action": ["TRUE"],
+      "rule": []
     }
   ],
   "dataset" : [ {

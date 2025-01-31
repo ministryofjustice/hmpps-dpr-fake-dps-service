@@ -43,15 +43,13 @@ class HmppsDprFakeDpsServiceExceptionHandler {
   }
 
   @ExceptionHandler(EntityNotFoundException::class)
-  fun handleEntityNotFoundException(e: EntityNotFoundException): ResponseEntity<ErrorResponse?>? {
-    return ResponseEntity
-      .status(NOT_FOUND)
-      .body(
-        ErrorResponse(
-          status = NOT_FOUND,
-        ),
-      )
-  }
+  fun handleEntityNotFoundException(e: EntityNotFoundException): ResponseEntity<ErrorResponse?>? = ResponseEntity
+    .status(NOT_FOUND)
+    .body(
+      ErrorResponse(
+        status = NOT_FOUND,
+      ),
+    )
 
   @ExceptionHandler(java.lang.Exception::class)
   fun handleException(e: java.lang.Exception): ResponseEntity<ErrorResponse?>? {

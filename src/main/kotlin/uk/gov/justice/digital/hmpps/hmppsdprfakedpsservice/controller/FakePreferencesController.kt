@@ -24,22 +24,18 @@ class FakePreferencesController(val fakePreferencesRepository: FakePreferencesRe
     security = [ SecurityRequirement(name = "bearer-jwt") ],
   )
   @GetMapping("/fake-preferences")
-  fun listFakePreferences(): List<FakePreferences> {
-    return fakePreferencesRepository.findAll().toList()
-  }
+  fun listFakePreferences(): List<FakePreferences> = fakePreferencesRepository.findAll().toList()
 
   @Operation(
     description = "Gets a specific prisoner's fake preferences",
     security = [ SecurityRequirement(name = "bearer-jwt") ],
   )
   @GetMapping("/fake-preferences/{prisonerNumber}")
-  fun getFakePreferences(@PathVariable prisonerNumber: String): FakePreferences {
-    return fakePreferencesRepository.findById(prisonerNumber)
-      .getOrElse {
-        log.warn("Preferences not found: {}", prisonerNumber)
-        throw EntityNotFoundException()
-      }
-  }
+  fun getFakePreferences(@PathVariable prisonerNumber: String): FakePreferences = fakePreferencesRepository.findById(prisonerNumber)
+    .getOrElse {
+      log.warn("Preferences not found: {}", prisonerNumber)
+      throw EntityNotFoundException()
+    }
 
   @Operation(
     description = "Adds or updates a prisoner's fake preferences",

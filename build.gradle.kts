@@ -1,7 +1,10 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
-  id("uk.gov.justice.hmpps.gradle-spring-boot") version "5.15.6"
-  kotlin("plugin.spring") version "2.0.21"
-  kotlin("plugin.jpa") version "2.0.21"
+  id("uk.gov.justice.hmpps.gradle-spring-boot") version "7.0.0"
+  kotlin("plugin.jpa") version "2.1.10"
+  kotlin("plugin.spring") version "2.1.10"
   id("jacoco")
   id("org.barfuin.gradle.jacocolog") version "3.1.0"
 }
@@ -14,30 +17,35 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-webflux")
 
   // DPR Library
-  implementation("uk.gov.justice.service.hmpps:hmpps-digital-prison-reporting-lib:5.0.0")
+  implementation("uk.gov.justice.service.hmpps:hmpps-digital-prison-reporting-lib:7.5.0")
   implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
 
   // Database
   implementation("org.springframework.boot:spring-boot-starter-data-jpa")
   implementation("org.springframework.boot:spring-boot-starter-security")
-  implementation("org.postgresql:postgresql:42.7.4")
+  implementation("org.postgresql:postgresql:42.7.5")
 
   // Swagger
-  implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
+  implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.4")
 
   // Testing
   testImplementation("com.h2database:h2")
 }
 
-java {
-  toolchain.languageVersion.set(JavaLanguageVersion.of(19))
+kotlin {
+  jvmToolchain(21)
+  compilerOptions {
+    freeCompilerArgs = listOf(
+      // cannot validate items within lists without this
+      // cf. https://youtrack.jetbrains.com/issue/KT-67909/Resolve-inconsistencies-with-Java-in-emitting-JVM-type-annotations
+      "-Xemit-jvm-type-annotations",
+    )
+  }
 }
 
 tasks {
-  withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions {
-      jvmTarget = "19"
-    }
+  withType<KotlinCompile> {
+    compilerOptions.jvmTarget = JvmTarget.JVM_21
   }
 }
 
