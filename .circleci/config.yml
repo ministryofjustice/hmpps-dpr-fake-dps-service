@@ -49,10 +49,6 @@ workflows:
           name: helm_lint
       - hmpps/build_multiplatform_docker:
           name: build_docker
-          filters:
-            branches:
-              only:
-                - main
       - hmpps/deploy_env:
           name: deploy_dev
           jira_update: true
