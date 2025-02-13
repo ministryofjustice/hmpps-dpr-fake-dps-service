@@ -17,7 +17,7 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-webflux")
 
   // DPR Library
-  implementation("uk.gov.justice.service.hmpps:hmpps-digital-prison-reporting-lib:7.5.0")
+  implementation("uk.gov.justice.service.hmpps:hmpps-digital-prison-reporting-lib:7.8.1")
   implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
 
   // Database
